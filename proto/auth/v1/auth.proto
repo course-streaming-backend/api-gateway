@@ -1,0 +1,49 @@
+syntax = "proto3";
+
+package auth.v1;
+
+option go_package = "github.com/course-streaming-backend/api-gateway/gen/auth/v1;authv1";
+
+// AuthService is the public gRPC contract exposed by the auth service.
+// The api-gateway is the only user-facing entry point and proxies calls to
+// this service.
+service AuthService {
+  // Health returns the current status of the auth service.
+  rpc Health(HealthRequest) returns (HealthResponse);
+  // Register creates a new user account.
+  rpc Register(RegisterRequest) returns (RegisterResponse);
+  // Login authenticates a user and returns an access token.
+  rpc Login(LoginRequest) returns (LoginResponse);
+}
+
+message HealthRequest {}
+
+message HealthResponse {
+  string status = 1;
+  bool db_ok = 2;
+}
+
+message RegisterRequest {
+  string email = 1;
+  string username = 2;
+  string password = 3;
+  string phone = 4;
+}
+
+message RegisterResponse {
+  string user_id = 1;
+  string email = 2;
+  string username = 3;
+}
+
+message LoginRequest {
+  // Identifier is an email or username.
+  string identifier = 1;
+  string password = 2;
+}
+
+message LoginResponse {
+  string access_token = 1;
+  string refresh_token = 2;
+  string user_id = 3;
+}
