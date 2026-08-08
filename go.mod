@@ -10,6 +10,8 @@ require (
 	google.golang.org/protobuf v1.36.11
 )
 
+replace github.com/course-streaming-backend/auth-sdk => ../auth-sdk
+
 require (
 	github.com/bytedance/gopkg v0.1.4 // indirect
 	github.com/bytedance/sonic v1.15.2 // indirect
